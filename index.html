@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2451ce">
+  <meta name="description" content="Help Johnny and his dog, Biscuit, build a rocket and travel to Mars in an illustrated storybook with activities on every page.">
+  <title>Johnny Builds to Mars · Tales for Tablets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="rocket-designer.js" defer></script>
+  <script src="story-audio.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main id="main-menu" class="main-menu" aria-label="Main menu">
+    <header class="menu-header">
+      <a class="brand" href="./" aria-label="Tales for Tablets home"><span class="brand-icon" aria-hidden="true">✦</span><span>Tales for Tablets</span></a>
+      <button class="menu-help" data-help>How to play</button>
+    </header>
+    <div class="menu-content">
+      <div class="menu-copy">
+        <p class="menu-category">An interactive storybook</p>
+        <h1>Johnny Builds<br>to <em>Mars</em></h1>
+        <p class="menu-description">Join Johnny and his dog, Biscuit, as they build a rocket from things around the house and travel to Mars.</p>
+        <button class="primary-button open-book" id="open-book">Open book <span aria-hidden="true">→</span></button>
+        <p class="resume-note" id="resume-note"></p>
+      </div>
+      <div class="menu-art" id="menu-art" aria-label="Johnny and Biscuit beneath the night sky"></div>
+    </div>
+    <footer class="menu-credit">By Parker &amp; Pine</footer>
+    <p class="menu-dog-response" id="menu-dog-response" role="status" hidden></p>
+  </main>
+  <main class="reader" id="reader" aria-label="Storybook reader" hidden>
+    <div class="reader-toolbar">
+      <button class="toolbar-button" id="back-to-menu"><span aria-hidden="true">←</span> Main menu</button>
+      <div class="reader-tools"><button class="toolbar-button sound-button" id="sound-button" aria-pressed="true"><span id="sound-icon" aria-hidden="true">♫</span><span id="sound-label">Sound on</span></button><button class="toolbar-button" id="help-button" aria-label="How to play">?</button></div>
+    </div>
+    <section class="book" id="book" aria-label="Johnny Builds to Mars interactive storybook">
+      <article class="story-page" id="story-page">
+        <div class="chapter-kicker sr-only" id="chapter-kicker"></div>
+        <div class="story-copy"><h2 id="story-title" tabindex="-1"></h2><p class="story-text" id="story-text"></p><button class="read-button" id="read-button"><span aria-hidden="true">▷</span><span id="read-label">Read to me</span></button></div>
+        <div class="activity-card" id="activity-card"><span class="activity-icon sr-only" aria-hidden="true">☝</span><div><span class="activity-label sr-only" id="activity-label">How you can help</span><p id="activity-instruction"></p><button class="design-button" id="design-rocket" hidden>Open the rocket blueprint</button><button class="restart-button" id="restart-button" hidden>Start the story again <span aria-hidden="true">↺</span></button></div><span class="activity-check sr-only" id="activity-check" aria-hidden="true">↗</span></div>
+      </article>
+      <div class="illustration-page" id="illustration-page"><div id="scene" class="scene"></div><div class="scene-toast" id="scene-toast" role="status" aria-live="polite"></div></div>
+    </section>
+    <nav class="book-navigation" aria-label="Story navigation"><button class="page-arrow" id="previous" aria-label="Previous page">←</button><div class="page-progress"><div class="progress-dots" id="progress-dots"></div><div class="page-description"><span id="page-count">1 of 6</span><span id="page-name" class="sr-only"></span></div></div><button class="page-arrow next-arrow" id="next" aria-label="Next page">→</button></nav>
+  </main>
+  <dialog class="rocket-designer" id="rocket-designer" aria-labelledby="designer-title">
+    <button class="dialog-close toolbar-button" id="close-designer" aria-label="Close rocket designer">×</button>
+    <h2 id="designer-title">Rocket blueprint</h2>
+    <p class="designer-intro">Draw the body, nose cone, and one fin; Johnny will make the matching fin.</p>
+    <nav class="blueprint-steps" id="blueprint-steps" aria-label="Blueprint drawing steps"></nav>
+    <form id="rocket-form" class="designer-layout">
+      <div class="drawing-board">
+        <svg id="rocket-drawing" viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg" tabindex="0" role="application" aria-label="Rocket drawing area" aria-describedby="drawing-keyboard-help">
+          <defs><pattern id="blueprint-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#b8e5ff" stroke-opacity=".22" stroke-width="1"/></pattern></defs>
+          <rect width="360" height="420" fill="url(#blueprint-grid)" pointer-events="none"/>
+          <g id="blueprint-guide" fill="none" stroke="#d9f3ff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="7 8" pointer-events="none"></g>
+          <g id="drawing-strokes"></g><circle id="drawing-cursor" cx="180" cy="210" r="5" fill="none" stroke="#fffbed" stroke-width="2" pointer-events="none"/>
+        </svg>
+        <span class="drawing-placeholder" id="drawing-placeholder">Draw the body here</span>
+      </div>
+      <div class="designer-controls">
+        <fieldset class="pen-colors"><legend>Choose a drawing color</legend>
+          <button type="button" class="pen-color" data-pen="#f3fbff" style="--pen-color:#f3fbff" aria-label="White blueprint pen" aria-pressed="true"></button>
+          <button type="button" class="pen-color" data-pen="#ec541d" style="--pen-color:#ec541d" aria-label="Orange pen" aria-pressed="false"></button>
+          <button type="button" class="pen-color" data-pen="#e8ac09" style="--pen-color:#e8ac09" aria-label="Yellow pen" aria-pressed="false"></button>
+          <button type="button" class="pen-color" data-pen="#119a79" style="--pen-color:#119a79" aria-label="Green pen" aria-pressed="false"></button>
+          <button type="button" class="pen-color" data-pen="#9e44ce" style="--pen-color:#9e44ce" aria-label="Purple pen" aria-pressed="false"></button>
+        </fieldset>
+        <label for="pen-width">Line thickness</label><select id="pen-width"><option value="4">Thin</option><option value="8" selected>Medium</option><option value="14">Thick</option></select>
+        <div class="drawing-actions"><button type="button" id="undo-drawing">Undo last line</button><button type="button" id="clear-drawing">Clear drawing</button></div>
+        <p class="blueprint-instruction" id="blueprint-instruction"></p>
+        <button type="button" class="primary-button" id="next-part" disabled>Continue to the nose cone</button>
+        <div id="rocket-naming" hidden><label for="rocket-name">What is your rocket called?</label><input id="rocket-name" name="rocket-name" maxlength="28" autocomplete="off" placeholder="Enter your rocket’s name" required></div>
+        <details class="drawing-help"><summary>Keyboard controls</summary><p id="drawing-keyboard-help">You can also draw with a keyboard: focus the drawing area, move with the arrow keys, and press Space to lower or lift the pen.</p></details>
+        <p class="design-feedback sr-only" id="design-feedback" role="status" aria-live="polite">Draw each part before moving to the next blueprint step.</p>
+        <button type="submit" class="primary-button" id="save-rocket" hidden disabled>Take my parts to the garage</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><button class="dialog-close toolbar-button" id="close-help" aria-label="Close help">×</button><h2 id="help-title">How to use the storybook</h2><p>Swipe left or right across a page, or use the arrows to turn it. The marks between the arrows show your progress; a new chapter becomes available after you complete the activity on the current chapter.</p><p>Drag supplies into the crate, fit your drawn parts into their outlines in any order, and drag the rocket to its landing spot. Each movable object must be dropped at its destination. Both fins use your single fin drawing.</p><p>Choose <strong>Read to me</strong> to hear the story. With a keyboard, use Tab to select a movable object and Space or Enter to pick it up. Move it with the arrow keys, then press Space or Enter to drop it. Hold Shift to move farther, or press Escape to cancel. When you are not moving an object, the arrow keys turn pages.</p><details class="sound-credits"><summary>Sound credits</summary><p>Dog bark by <a href="https://freesound.org/people/ivolipa/sounds/332457/">ivolipa on Freesound</a>. Light wood impact by <a href="https://kenney.nl/assets/impact-sounds">Kenney</a>. Both are licensed under <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. Playback is shortened, filtered, and softened.</p></details><button class="primary-button" id="start-exploring">Close instructions</button></dialog>
+  <div class="sr-only" id="page-announcement" aria-live="polite"></div>
+</body>
+</html>
